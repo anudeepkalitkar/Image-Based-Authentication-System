@@ -1,7 +1,6 @@
 import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Layout from "./Layout/Layout";
 import HomePage from "./HomePage/HomePage";
 import SignupPage from "./SignupPage/SignupPage";
 import SigninPage from "./SigninPage/SigninPage";
@@ -12,8 +11,8 @@ function App() {
 		<>
 		<HashRouter>
 			<Routes>
-				{/* <Route path="/" element={<Layout PassedComponent={HomePage} />} /> */}
-				<Route path="/" element={<Layout PassedComponent={SignupPage} />} />
+				{/* <Route path="/" element={<HomePage  />} /> */}
+				<Route path="/" element={<SignupPage  />} />
 			
 			</Routes>
 
