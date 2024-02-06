@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/ibas-icongp/static/css/main.61c0afdf.css",
-    "main.js": "/ibas-icongp/static/js/main.dd4b8e65.js",
-    "static/js/592.393b3290.chunk.js": "/ibas-icongp/static/js/592.393b3290.chunk.js",
-    "static/media/Bg-image.jpg": "/ibas-icongp/static/media/Bg-image.2692f8fce221aaac0e94.jpg",
-    "index.html": "/ibas-icongp/index.html",
-    "main.61c0afdf.css.map": "/ibas-icongp/static/css/main.61c0afdf.css.map",
-    "main.dd4b8e65.js.map": "/ibas-icongp/static/js/main.dd4b8e65.js.map",
-    "592.393b3290.chunk.js.map": "/ibas-icongp/static/js/592.393b3290.chunk.js.map"
+    "main.css": "/Image-Based-Authentication-System/static/css/main.8ce90ca4.css",
+    "main.js": "/Image-Based-Authentication-System/static/js/main.f1019ce9.js",
+    "static/js/592.393b3290.chunk.js": "/Image-Based-Authentication-System/static/js/592.393b3290.chunk.js",
+    "static/media/Bg-image.jpg": "/Image-Based-Authentication-System/static/media/Bg-image.2692f8fce221aaac0e94.jpg",
+    "index.html": "/Image-Based-Authentication-System/index.html",
+    "main.8ce90ca4.css.map": "/Image-Based-Authentication-System/static/css/main.8ce90ca4.css.map",
+    "main.f1019ce9.js.map": "/Image-Based-Authentication-System/static/js/main.f1019ce9.js.map",
+    "592.393b3290.chunk.js.map": "/Image-Based-Authentication-System/static/js/592.393b3290.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.61c0afdf.css",
-    "static/js/main.dd4b8e65.js"
+    "static/css/main.8ce90ca4.css",
+    "static/js/main.f1019ce9.js"
   ]
 }
