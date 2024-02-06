@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/ibas-icongp/static/css/main.61c0afdf.css",
+    "main.js": "/ibas-icongp/static/js/main.dd4b8e65.js",
+    "static/js/592.393b3290.chunk.js": "/ibas-icongp/static/js/592.393b3290.chunk.js",
+    "static/media/Bg-image.jpg": "/ibas-icongp/static/media/Bg-image.2692f8fce221aaac0e94.jpg",
+    "index.html": "/ibas-icongp/index.html",
+    "main.61c0afdf.css.map": "/ibas-icongp/static/css/main.61c0afdf.css.map",
+    "main.dd4b8e65.js.map": "/ibas-icongp/static/js/main.dd4b8e65.js.map",
+    "592.393b3290.chunk.js.map": "/ibas-icongp/static/js/592.393b3290.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.61c0afdf.css",
+    "static/js/main.dd4b8e65.js"
+  ]
+}
