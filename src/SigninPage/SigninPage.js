@@ -22,7 +22,7 @@ const SigninPage = (props) => {
 	};
 
 	const generateImageGrid = () => {
-		const source = "http://localhost:3000/ibas-icongp/Images/icons/";
+		const source = "Images/icons/";
 		let table = [];
 		const gridSize = 10;
 		let count = 0;
@@ -101,7 +101,6 @@ const SigninPage = (props) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(formData);
 		let email = {
 			method: "post",
 			contentType: "application/json",
@@ -110,7 +109,6 @@ const SigninPage = (props) => {
 		};
 		await axios(email).then(
 			(res) => {
-				console.log(res.data);
 				if (res.data.success) {
 					ShowAlert("You have been successfully Logged into our systems.", true);
 				} else {

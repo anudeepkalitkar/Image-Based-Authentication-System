@@ -23,7 +23,7 @@ const SignupPage = (props) => {
 	};
 
 	const generateImageGrid = () => {
-		const source = "http://localhost:3000/ibas-icongp/Images/icons/";
+		const source = "Images/icons/";
 		let table = [];
 		const gridSize = 10;
 		let count = 0;
@@ -100,7 +100,6 @@ const SignupPage = (props) => {
 	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(formData);
 		let email = {
 			method: "post",
 			contentType: "application/json",
@@ -109,7 +108,6 @@ const SignupPage = (props) => {
 		};
 		await axios(email).then(
 			(res) => {
-				console.log(res.data.success);
 				if (res.data.success) {
 					ShowAlert(
 						"You have been successfully registered into our systems. Its time to check your password by logging into our system.",

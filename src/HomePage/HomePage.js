@@ -8,12 +8,11 @@ const HomePage = (props) => {
 	let navigate = useNavigate();
 	const handleLoginButton = (event) => {
 		event.preventDefault();
-		console.log(event.target);
+		
 		navigate('/login');
 	};
 	const handleSigninButton = (event) => {
 		event.preventDefault();
-		console.log(event.target);
 		navigate('/signup');
 	};
 	return (
