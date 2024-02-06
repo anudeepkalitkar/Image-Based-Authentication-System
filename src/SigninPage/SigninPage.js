@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./SigninPage.css";
+import M from "materialize-css";
+import { BackEndLoginURL, PortFolioURL } from "../StaticInformation/UrlLinkInfo";
 
 const SigninPage = (props) => {
-	const [formData, setFormData] = useState({ password: "" });
+	const [timer, ChangeTimer] = useState(10);
+	const [startTimer, SetStartTimer] = useState(false);
+	const Sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+	const [formData, setFormData] = useState({ Password: "" });
 	const [randNumbers, SetRandNumbers] = useState([]);
+	const [alertMessage, SetAlertMessage] = useState("");
 	const generateRandomNumbers = () => {
 		const numbers = Array.from({ length: 100 }, (_, i) => i + 1);
 		for (let i = numbers.length - 1; i > 0; i--) {
@@ -47,14 +54,14 @@ const SigninPage = (props) => {
 
 	const handleClickImage = (event) => {
 		event.preventDefault();
-		let labelClass = document.getElementById("password_label");
+		let labelClass = document.getElementById("Password_label");
 		if (!labelClass.className.includes("active")) {
 			labelClass.className = labelClass.className + " active";
 		}
 
 		setFormData({
 			...formData,
-			["password"]: formData["password"] + ";" + event.target.id,
+			["Password"]: formData["Password"] + ";" + event.target.id,
 		});
 	};
 	const handleChange = (event) => {
@@ -68,40 +75,71 @@ const SigninPage = (props) => {
 
 	const handleClearPassword = (event) => {
 		event.preventDefault();
-		let labelClass = document.getElementById("password_label");
+		let labelClass = document.getElementById("Password_label");
 		if (labelClass.className.includes("active")) {
 			labelClass.className = "black-text";
 		}
 		setFormData({
 			...formData,
-			["password"]: "",
+			["Password"]: "",
 		});
 	};
 	const handleClearForm = (event) => {
 		event.preventDefault();
 		window.location.reload();
 	};
+
+	const ShowAlert = (message, nextPage) => {
+		if (nextPage) {
+			SetStartTimer(true);
+		}
+		SetAlertMessage(message);
+		let modal = document.getElementById("modalAlert");
+		let modelInstance = M.Modal.init(modal, {});
+		modelInstance.open();
+	};
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		console.log(formData);
 		let email = {
 			method: "post",
 			contentType: "application/json",
-			url: "./",
+			url: BackEndLoginURL,
 			data: formData,
 		};
 		await axios(email).then(
 			(res) => {
+				console.log(res.data);
 				if (res.data.success) {
-					alert("Thanks for your Email. I will respond as soon as possible!");
+					ShowAlert("You have been successfully Logged into our systems.", true);
+				} else {
+					ShowAlert(res.data.error, false);
 				}
 			},
-			(error) => console.log(error)
+			(error) => {
+				ShowAlert(error, false);
+			}
 		);
 	};
 	useEffect(() => {
 		SetRandNumbers(generateRandomNumbers());
 	}, []);
+
+	useEffect(() => {
+		async function TimeLeft() {
+			await Sleep(1000);
+			if (startTimer) {
+				if (timer - 1 === -1) {
+					SetStartTimer(false);
+					window.location.href = PortFolioURL;
+				} else {
+					ChangeTimer(timer - 1);
+				}
+			}
+		}
+		TimeLeft();
+	}, [timer, startTimer]);
 
 	return (
 		<div className="row">
@@ -124,31 +162,31 @@ const SigninPage = (props) => {
 									</label>
 									<span id="_Uname" className="red-text"></span>
 								</div>
-								</div>
+							</div>
 							<div className="row">
 								<div className="input-field col s12 m10">
 									<input
-										type="password"
-										name="password"
-										id="password"
+										type="Password"
+										name="Password"
+										id="Password"
 										readOnly
 										required
-										value={formData["password"]}
+										value={formData["Password"]}
 									/>
 									<label
-										htmlFor="password"
-										id="password_label"
+										htmlFor="Password"
+										id="Password_label"
 										className="black-text">
-										Choose your password Images form right
+										Choose your Password Images form right
 									</label>
-									<span id="_password" className="red-text"></span>
+									<span id="_Password" className="red-text"></span>
 								</div>
 								<div className="input-field  col s12 m2">
-									<a
+									<button
 										className="waves-effect waves-light btn "
 										onClick={handleClearPassword}>
 										clear
-									</a>
+									</button>
 								</div>
 							</div>
 							<div className="row">
@@ -163,12 +201,12 @@ const SigninPage = (props) => {
 									</button>
 								</div>
 								<div className="col s6">
-									<a
+									<button
 										className="btn waves-effect waves-light red"
 										onClick={handleClearForm}>
 										Clear Form
 										<i className="material-icons right">clear_all</i>
-									</a>
+									</button>
 								</div>
 							</div>
 						</form>
@@ -178,9 +216,23 @@ const SigninPage = (props) => {
 			<div className="col s6 lockImage ">
 				<div className=" center">
 					<h4 className="orange-text heading">
-						Select images in a sequence, which will be your password
+						Select images in a sequence, which will be your Password
 					</h4>
 					<div className=" container">{generateImageGrid()}</div>
+				</div>
+			</div>
+			<div id="modalAlert" className="modal open ">
+				<div className="modal-content ">
+					<h4 className="title-div">
+						{alertMessage}
+						{startTimer && (
+							<h5>
+								We will redirect to my other Projects in {timer} seconds. Please do
+								check them out!!
+							</h5>
+						)}
+					</h4>
+					<button className="modal-close btn">close</button>
 				</div>
 			</div>
 		</div>

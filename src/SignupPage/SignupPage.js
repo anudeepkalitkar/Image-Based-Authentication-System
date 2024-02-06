@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./SignupPage.css";
+import M from "materialize-css";
+import { BackEndSignupURL } from "../StaticInformation/UrlLinkInfo";
+import { useNavigate } from "react-router-dom";
 
 const SignupPage = (props) => {
-	const [formData, setFormData] = useState({ password: "" });
+	let navigate = useNavigate();
+	const [alertMessage, SetAlertMessage] = useState(false);
+	const [timer, ChangeTimer] = useState(10);
+	const [startTimer, SetStartTimer] = useState(false);
+	const Sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+	const [formData, setFormData] = useState({ Password: "" });
 	const [randNumbers, SetRandNumbers] = useState([]);
 	const generateRandomNumbers = () => {
 		const numbers = Array.from({ length: 100 }, (_, i) => i + 1);
@@ -47,14 +55,13 @@ const SignupPage = (props) => {
 
 	const handleClickImage = (event) => {
 		event.preventDefault();
-		let labelClass = document.getElementById("password_label");
+		let labelClass = document.getElementById("Password_label");
 		if (!labelClass.className.includes("active")) {
 			labelClass.className = labelClass.className + " active";
 		}
-
 		setFormData({
 			...formData,
-			["password"]: formData["password"] + ";" + event.target.id,
+			["Password"]: formData["Password"] + ";" + event.target.id,
 		});
 	};
 	const handleChange = (event) => {
@@ -68,18 +75,28 @@ const SignupPage = (props) => {
 
 	const handleClearPassword = (event) => {
 		event.preventDefault();
-		let labelClass = document.getElementById("password_label");
+		let labelClass = document.getElementById("Password_label");
 		if (labelClass.className.includes("active")) {
 			labelClass.className = "black-text";
 		}
 		setFormData({
 			...formData,
-			["password"]: "",
+			["Password"]: "",
 		});
 	};
 	const handleClearForm = (event) => {
 		event.preventDefault();
 		window.location.reload();
+	};
+
+	const ShowAlert = (message, nextPage) => {
+		if (nextPage) {
+			SetStartTimer(true);
+		}
+		SetAlertMessage(message);
+		let modal = document.getElementById("modalAlert");
+		let modelInstance = M.Modal.init(modal, {});
+		modelInstance.open();
 	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -87,21 +104,44 @@ const SignupPage = (props) => {
 		let email = {
 			method: "post",
 			contentType: "application/json",
-			url: "./",
+			url: BackEndSignupURL,
 			data: formData,
 		};
 		await axios(email).then(
 			(res) => {
+				console.log(res.data.success);
 				if (res.data.success) {
-					alert("Thanks for your Email. I will respond as soon as possible!");
+					ShowAlert(
+						"You have been successfully registered into our systems. Its time to check your password by logging into our system.",
+						true
+					);
+				} else {
+					ShowAlert(res.data.error, false);
 				}
 			},
-			(error) => console.log(error)
+			(error) => {
+				ShowAlert(error, false);
+			}
 		);
 	};
 	useEffect(() => {
 		SetRandNumbers(generateRandomNumbers());
 	}, []);
+
+	useEffect(() => {
+		async function TimeLeft() {
+			await Sleep(1000);
+			if (startTimer) {
+				if (timer - 1 === -1) {
+					SetStartTimer(false);
+					navigate("/login");
+				} else {
+					ChangeTimer(timer - 1);
+				}
+			}
+		}
+		TimeLeft();
+	}, [timer, startTimer]);
 
 	return (
 		<div className="row">
@@ -152,10 +192,10 @@ const SignupPage = (props) => {
 									</label>
 									<span id="_Uname" className="red-text"></span>
 								</div>
-								<div className="input-field  col s12 m10">
+								<div className="input-field  col s12 ">
 									<input
 										type="email"
-										name="email"
+										name="Email"
 										id="Email"
 										required
 										onChange={handleChange}
@@ -165,19 +205,11 @@ const SignupPage = (props) => {
 									</label>
 									<span id="_Email" className="red-text"></span>
 								</div>
-
-								<div className="input-field  col s12 m2">
-									<a
-										id="email_verify_btn"
-										className="waves-effect waves-light btn">
-										verify
-									</a>
-								</div>
 								<div className="input-field  col s12 m12">
 									<input
 										type="text"
-										name="phno"
-										id="phno"
+										name="Phno"
+										id="Phno"
 										onChange={handleChange}
 									/>
 									<label htmlFor="phno" className="black-text">
@@ -189,26 +221,26 @@ const SignupPage = (props) => {
 								<div className="input-field col s12 m10">
 									<input
 										type="password"
-										name="password"
-										id="password"
+										name="Password"
+										id="Password"
 										readOnly
 										required
-										value={formData["password"]}
+										value={formData["Password"]}
 									/>
 									<label
-										htmlFor="password"
-										id="password_label"
+										htmlFor="Password"
+										id="Password_label"
 										className="black-text">
-										Choose your password Images form right
+										Choose your Password Images form right
 									</label>
-									<span id="_password" className="red-text"></span>
+									<span id="_Password" className="red-text"></span>
 								</div>
 								<div className="input-field  col s12 m2">
-									<a
+									<button
 										className="waves-effect waves-light btn "
 										onClick={handleClearPassword}>
 										clear
-									</a>
+									</button>
 								</div>
 							</div>
 							<div className="row">
@@ -223,12 +255,12 @@ const SignupPage = (props) => {
 									</button>
 								</div>
 								<div className="col s6">
-									<a
+									<button
 										className="btn waves-effect waves-light red"
 										onClick={handleClearForm}>
 										Clear Form
 										<i className="material-icons right">clear_all</i>
-									</a>
+									</button>
 								</div>
 							</div>
 						</form>
@@ -238,9 +270,16 @@ const SignupPage = (props) => {
 			<div className="col s6 lockImage ">
 				<div className=" center">
 					<h4 className="orange-text heading">
-						Select images in a sequence, which will be your password
+						Select images in a sequence, which will be your Password
 					</h4>
-					<div className=" container">{generateImageGrid()}</div>
+					<div className="container">{generateImageGrid()}</div>
+				</div>
+			</div>
+			<div id="modalAlert" className="modal open">
+				<div className="modal-content">
+					<h4 className="title-div">{alertMessage}</h4>
+					{startTimer && <h5>We will redirect you to Login Page in {timer} seconds</h5>}
+					<button className="modal-close btn">close</button>
 				</div>
 			</div>
 		</div>

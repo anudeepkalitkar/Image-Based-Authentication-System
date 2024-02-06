@@ -1,15 +1,20 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
+
 import "./HomePage.css";
 import { ProjectInfo } from "../StaticInformation/ProjectInfo";
 
 const HomePage = (props) => {
+	let navigate = useNavigate();
 	const handleLoginButton = (event) => {
 		event.preventDefault();
 		console.log(event.target);
+		navigate('/login');
 	};
 	const handleSigninButton = (event) => {
 		event.preventDefault();
 		console.log(event.target);
+		navigate('/signup');
 	};
 	return (
 		<div className="row">
@@ -24,15 +29,14 @@ const HomePage = (props) => {
 								<button
 									className="waves-effect waves-light btn  green "
 									onClick={handleLoginButton}>
-									{" "}
-									Login{" "}
+									Login
 								</button>
 							</div>
 							<div className="col s6">
 								<button
 									className="waves-effect waves-light btn blue "
 									onClick={handleSigninButton}>
-									Sign up{" "}
+									Sign up
 								</button>
 							</div>
 						</div>
