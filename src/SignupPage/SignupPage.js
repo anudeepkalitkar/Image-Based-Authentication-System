@@ -142,137 +142,122 @@ const SignupPage = (props) => {
 	}, [timer, startTimer]);
 
 	return (
-		<div className="row">
-			<div className="col s6 application">
-				<div className="center">
-					<h3 className="heading">Sign up</h3>
-					<div className="container">
-						<form onSubmit={handleSubmit}>
-							<div className="row">
-								<div className="input-field col s12 m6">
-									<input
-										type="text"
-										name="Fname"
-										id="Fname"
-										required
-										onChange={handleChange}
-									/>
-									<label htmlFor="Fname" className="black-text">
-										First Name
-									</label>
-									<span id="_Fname" className="red-text"></span>
-								</div>
-								<div className="input-field col s12 m6">
-									<input
-										type="text"
-										name="Lname"
-										id="Lname"
-										required
-										onChange={handleChange}
-									/>
+		<div className="center">
+			<h3 className="heading">Sign up</h3>
+			<div className="container">
+				<form onSubmit={handleSubmit}>
+					<div className="row">
+						<div className="input-field col s12 m6">
+							<input
+								type="text"
+								name="Fname"
+								id="Fname"
+								required
+								onChange={handleChange}
+							/>
+							<label htmlFor="Fname" className="black-text">
+								First Name
+							</label>
+							<span id="_Fname" className="red-text"></span>
+						</div>
+						<div className="input-field col s12 m6">
+							<input
+								type="text"
+								name="Lname"
+								id="Lname"
+								required
+								onChange={handleChange}
+							/>
 
-									<label htmlFor="Lname" className="black-text">
-										Last Name
-									</label>
-									<span id="_Lname" className="red-text"></span>
-								</div>
+							<label htmlFor="Lname" className="black-text">
+								Last Name
+							</label>
+							<span id="_Lname" className="red-text"></span>
+						</div>
 
-								<div className="input-field col s12 m12">
-									<input
-										type="text"
-										name="Uname"
-										id="Uname"
-										required
-										onChange={handleChange}
-									/>
-									<label htmlFor="Uname" className="black-text">
-										UserName
-									</label>
-									<span id="_Uname" className="red-text"></span>
-								</div>
-								<div className="input-field  col s12 ">
-									<input
-										type="email"
-										name="Email"
-										id="Email"
-										required
-										onChange={handleChange}
-									/>
-									<label htmlFor="Email" className="black-text">
-										Email
-									</label>
-									<span id="_Email" className="red-text"></span>
-								</div>
-								<div className="input-field  col s12 m12">
-									<input
-										type="text"
-										name="Phno"
-										id="Phno"
-										onChange={handleChange}
-									/>
-									<label htmlFor="phno" className="black-text">
-										Phone Number (Optional)
-									</label>
-								</div>
-							</div>
-							<div className="row">
-								<div className="input-field col s12 m10">
-									<input
-										type="password"
-										name="Password"
-										id="Password"
-										readOnly
-										required
-										value={formData["Password"]}
-									/>
-									<label
-										htmlFor="Password"
-										id="Password_label"
-										className="black-text">
-										Choose your Password Images form right
-									</label>
-									<span id="_Password" className="red-text"></span>
-								</div>
-								<div className="input-field  col s12 m2">
-									<button
-										className="waves-effect waves-light btn "
-										onClick={handleClearPassword}>
-										clear
-									</button>
-								</div>
-							</div>
-							<div className="row">
-								<div className="col s6">
-									<button
-										className="btn waves-effect waves-light green "
-										type="submit"
-										id="submit"
-										name="submit">
-										Submit
-										<i className="material-icons right">send</i>
-									</button>
-								</div>
-								<div className="col s6">
-									<button
-										className="btn waves-effect waves-light red"
-										onClick={handleClearForm}>
-										Clear Form
-										<i className="material-icons right">clear_all</i>
-									</button>
-								</div>
-							</div>
-						</form>
+						<div className="input-field col s12 m12">
+							<input
+								type="text"
+								name="Uname"
+								id="Uname"
+								required
+								onChange={handleChange}
+							/>
+							<label htmlFor="Uname" className="black-text">
+								UserName
+							</label>
+							<span id="_Uname" className="red-text"></span>
+						</div>
+						<div className="input-field  col s12 ">
+							<input
+								type="email"
+								name="Email"
+								id="Email"
+								required
+								onChange={handleChange}
+							/>
+							<label htmlFor="Email" className="black-text">
+								Email
+							</label>
+							<span id="_Email" className="red-text"></span>
+						</div>
+						{/* <div className="input-field  col s12 m12">
+							<input type="text" name="Phno" id="Phno" onChange={handleChange} />
+							<label htmlFor="phno" className="black-text">
+								Phone Number (Optional)
+							</label>
+						</div> */}
 					</div>
-				</div>
-			</div>
-			<div className="col s6 lockImage ">
-				<div className=" center">
-					<h4 className="orange-text heading">
+					<h4 className="heading">
 						Select images in a sequence, which will be your Password
 					</h4>
 					<div className="container">{generateImageGrid()}</div>
-				</div>
+					<div className="row">
+						<div className="input-field col s12 m10">
+							<input
+								type="password"
+								name="Password"
+								id="Password"
+								readOnly
+								required
+								value={formData["Password"]}
+							/>
+							<label htmlFor="Password" id="Password_label" className="black-text">
+								Choose your Password Images
+							</label>
+							<span id="_Password" className="red-text"></span>
+						</div>
+						<div className="input-field  col s12 m2">
+							<button
+								className="waves-effect waves-light btn "
+								onClick={handleClearPassword}>
+								clear
+							</button>
+						</div>
+					</div>
+					<div className="row">
+						<div className="col s6">
+							<button
+								className="btn waves-effect waves-light green "
+								type="submit"
+								id="submit"
+								name="submit">
+								Submit
+								<i className="material-icons right">send</i>
+							</button>
+						</div>
+						<div className="col s6">
+							<button
+								className="btn waves-effect waves-light red"
+								onClick={handleClearForm}>
+								Clear Form
+								<i className="material-icons right">clear_all</i>
+							</button>
+						</div>
+					</div>
+				</form>
 			</div>
+
 			<div id="modalAlert" className="modal open">
 				<div className="modal-content">
 					<h4 className="title-div">{alertMessage}</h4>
